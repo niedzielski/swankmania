@@ -1,0 +1,1 @@
+swankmania was a neat one semester project I did in the Fall of 2007. It was a portable gaming device featuring a liquid crystal display (LCD), vector graphics, and a vintage controller. As I needed to demonstrate the capabilities of swankmania, I also designed BLiT, a small game in the vein of Asteroids.
