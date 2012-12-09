@@ -1,0 +1,98 @@
+/*******************************************************************************
+swankmania_HDL
+Stephen Niedzielski - sniedzie@digipen.edu
+*******************************************************************************/
+
+`include "Global.h"
+
+
+// Created:   Wednesday, October 31, 2007 [Stephen Niedzielski]
+// Modified:  Thursday, November 1, 2007 [Stephen Niedzielski]
+module FrameCtrl
+(
+  input iClk,
+  input iFlipGo,
+  input iFlip,
+  
+  // ACX interface 0.
+  input         iClk0,
+  input [15:0]  iAdr0,
+  input [8:0]   iD0,
+  output [8:0]  oQ0,
+  input         iWrEn0,
+
+  // Write interface.
+  input         iClk1,
+  input [15:0]  iAdr1,
+  input [8:0]   iD1,
+  output [8:0]  oQ1,
+  input         iWrEn1,
+
+  // SRAM (frame B).
+  output [17:00]  oSRAM_A,
+  inout  [15:00]  ioSRAM_IO,
+  output          oSRAM_CE_,
+  output          oSRAM_WE_,
+  output          oSRAM_LB_,
+  output          oSRAM_UB_,
+  output          oSRAM_OE_,
+
+  output          oDbg
+);
+  reg _Face0;
+  initial
+    _Face0 = 1'b1;
+
+  wire [15:0] FrameA_Adr;
+  wire
+  FrameA_Clk,
+  FrameA_WrEn;
+  wire [8:0]
+  FrameA_D,
+  FrameA_Q;
+
+  assign oDbg = _Face0;
+
+  // Memory ownership.
+  always_ff @( posedge iClk )
+    if( iFlip && iFlipGo )
+      _Face0 <= ~_Face0;
+
+  // On-board memory frame A.
+  FrameA
+  FrameA0
+  (
+    .inclock( iClk1 ),
+    .outclock( iClk1 ),
+    //.clock( FrameA_Clk ),
+    .address( FrameA_Adr ),
+    .data( FrameA_D ),
+    .q( FrameA_Q ),
+    .wren( FrameA_WrEn )
+  );
+
+  // SRAM (frame B).
+  assign
+  oSRAM_CE_ = 1'b0, // Chip always enabled.
+  oSRAM_OE_ = 1'b0, // Output always enabled.
+  oSRAM_LB_ = 1'b0, // Lower byte always enabled.
+  oSRAM_UB_ = 1'b0; // Upper byte always enabled.
+
+  // Interface.
+  assign oQ0      = _Face0 ? FrameA_Q   : ioSRAM_IO;
+  assign oQ1      = _Face0 ? ioSRAM_IO  : FrameA_Q;
+  
+  // Frame A.
+  //assign FrameA_Clk   = _Face0 ? iClk0  : iClk1;
+  assign FrameA_Adr   = _Face0 ? iAdr0  : iAdr1;
+  assign FrameA_D     = _Face0 ? iD0    : iD1;
+  assign FrameA_WrEn  = _Face0 ? iWrEn0 : iWrEn1;
+
+  // Frame B.
+  assign oSRAM_A    = _Face0 ? iAdr1    : iAdr0;
+  assign ioSRAM_IO  = oSRAM_WE_
+                    ? 16'hz
+                    : _Face0 ? iD1      : iD0;
+  assign oSRAM_WE_  = _Face0 ? ~iWrEn1  : ~iWrEn0;
+
+endmodule

@@ -1,0 +1,16 @@
+[||Compilation Report||Timing Analyzer||Clock Hold: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0']
+COLUMN_WIDTHS=183L,289L,766L,232L,232L,82L,99L,86L,
+OUTPUT_SECTION=1
+PAGE_ORIENTATION=0
+[||Compilation Report||Timing Analyzer||Clock Hold: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1']
+COLUMN_WIDTHS=183L,293L,869L,232L,232L,82L,99L,86L,
+OUTPUT_SECTION=1
+PAGE_ORIENTATION=0
+[||Compilation Report||Timing Analyzer||Clock Setup: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1']
+COLUMN_WIDTHS=183L,253L,289L,719L,232L,232L,88L,98L,85L,
+OUTPUT_SECTION=1
+PAGE_ORIENTATION=0
+[||Compilation Report||Timing Analyzer||Timing Analyzer Summary]
+COLUMN_WIDTHS=322L,49L,166L,52L,584L,953L,232L,232L,42L,
+OUTPUT_SECTION=1
+PAGE_ORIENTATION=0

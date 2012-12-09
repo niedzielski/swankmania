@@ -1,0 +1,107 @@
+/*******************************************************************************
+swankmania_HDL
+Stephen Niedzielski - sniedzie@digipen.edu
+*******************************************************************************/
+
+`include "Global.h"
+
+// Sony ACX705AKM controller.
+// Created:   Friday, October 5, 2007 [Stephen Niedzielski]
+// Modified:  Friday, October 5, 2007 [Stephen Niedzielski]
+module ACX705AKM_Ctrl
+(
+  input         iClk100,
+  input         iClk16,
+  output        oVsync,
+  output        oHsync,
+  output        oSD,
+  output        oMCK,  
+  output [15:0] oAdr
+);
+
+  // Never shut down.
+  assign oSD = 1'b1;
+
+  localparam
+  MCK_Hz        = 4_000_000,
+  Hsync_Frame   = 200,
+  Vsync_Hz      = 74, // ~74.171
+  Dots_Frame    = 272,
+  Pixels_Line   = 240,
+  Lines_Frame   = 160,
+  Pixels_Frame  = Pixels_Line * Lines_Frame;
+
+  // Generate the 4 MHz MCK clock signal from a 16 MHz clock and two flip flops.
+  reg
+  _MCK8,
+  _MCK;
+  initial
+  begin
+    _MCK8 = 1'b0;
+    _MCK = 1'b0;
+  end
+  assign oMCK = _MCK;
+
+  // 16 MHz to 8 Mhz.
+  always_ff @( posedge iClk16 )
+  begin
+    _MCK8 <= ~_MCK8;
+  end
+
+  // 8 Mhz to 4 MHz.
+  always_ff @( posedge _MCK8 )
+  begin
+    _MCK <= ~_MCK;
+  end
+
+  // HSYNC, VSYNC, and pixel management.
+  reg [8:0] _DotCnt;
+  reg [7:0] _HsyncCnt;
+  initial
+  begin
+    _DotCnt = 9'h000;
+    _HsyncCnt = 8'h00;
+  end
+  assign oAdr = _DotCnt + Pixels_Line * _HsyncCnt;
+
+  // Dot count.
+  always_ff @( posedge oMCK )
+  begin
+    if( _DotCnt == (Dots_Frame - 1'd1) )
+      _DotCnt <= 9'h0;
+    else
+      _DotCnt <= _DotCnt + 1'd1;
+  end
+
+  // Hsync count.
+  always_ff @( posedge oMCK )
+  begin
+    if( _DotCnt == (Dots_Frame - 1'd1) )
+    begin
+      if( _HsyncCnt == (Hsync_Frame - 1'd1) )
+        _HsyncCnt <= 8'h0;
+      else
+        _HsyncCnt <= _HsyncCnt + 1'd1;
+    end
+  end
+
+  // Hsync and Vsync.
+  reg
+  _Hsync,
+  _Vsync;
+  initial
+  begin
+    _Hsync = 1'b1;
+    _Vsync = 1'b1;
+  end
+  always_ff @( posedge oMCK )
+  begin
+    // Note memory latency when outputting Vsync and Hsync.
+    _Hsync <= _DotCnt >= 256 && _DotCnt   <= 265 ? 1'b0 : 1'b1;
+    _Vsync <= _HsyncCnt >= 180 && _HsyncCnt <= 182 ? 1'b0 : 1'b1;
+  end
+  assign
+  oHsync = _Hsync,
+  oVsync = _Vsync;
+
+endmodule

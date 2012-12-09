@@ -1,0 +1,71 @@
+<internal_error>
+	<executable>quartus.exe</executable>
+	<sub_system>ERR</sub_system>
+	<file>q:\quartus\ccl\msg\msg_internal_error.cpp</file>
+	<line>732</line>
+	<callstack>
+	0x65e591ae: itircl + 0x91ae (DllUnregisterServer + 0x33c)
+	0x65e53d52: itircl + 0x3d52 (DllUnregisterServer + 0x0)
+	0x7e24187a: hhctrl + 0x6187a (DllUnregisterServer + 0x2a2d4)
+	0x7e241be2: hhctrl + 0x61be2 (DllUnregisterServer + 0x2a63c)
+	0x7e241ebd: hhctrl + 0x61ebd (DllUnregisterServer + 0x2a917)
+	0x7e242152: hhctrl + 0x62152 (DllUnregisterServer + 0x2abac)
+	0x7e21149f: hhctrl + 0x3149f (AuthorMsg + 0x321c)
+	0x7e21b092: hhctrl + 0x3b092 (DllUnregisterServer + 0x3aec)
+	0x7e21b65b: hhctrl + 0x3b65b (DllUnregisterServer + 0x40b5)
+	0x7e21ba60: hhctrl + 0x3ba60 (DllUnregisterServer + 0x44ba)
+	0x7e206ce2: hhctrl + 0x26ce2 (LoadHHA + 0x1940)
+	0x7e1fc5ca: hhctrl + 0x1c5ca (Ordinal10 + 0x1c5ca)
+	0x7e1fb6b0: hhctrl + 0x1b6b0 (Ordinal10 + 0x1b6b0)
+	0x7e1fba15: hhctrl + 0x1ba15 (Ordinal10 + 0x1ba15)
+	0x7e2063c3: hhctrl + 0x263c3 (LoadHHA + 0x1021)
+	0x7eb0b59b: mshtml + 0x2db59b (ConvertAndEscapePostData + 0x845e4)
+	0x7ea119e0: mshtml + 0x1e19e0 (DllCanUnloadNow + 0x566ef)
+	0x7e920f2c: mshtml + 0xf0f2c (DllGetClassObject + 0xd6141)
+	0x7e920eb7: mshtml + 0xf0eb7 (DllGetClassObject + 0xd60cc)
+	0x7e9211c7: mshtml + 0xf11c7 (DllGetClassObject + 0xd63dc)
+	0x7e8ea3c8: mshtml + 0xba3c8 (DllGetClassObject + 0x9f5dd)
+	0x7e9011b1: mshtml + 0xd11b1 (DllGetClassObject + 0xb63c6)
+	0x77d48733: USER32 + 0x8733 (GetDC + 0x6c)
+	0x77d48815: USER32 + 0x8815 (GetDC + 0x14e)
+	0x77d489cc: USER32 + 0x89cc (GetWindowLongW + 0x126)
+	0x77d48a0f: USER32 + 0x8a0f (DispatchMessageW + 0xe)
+	0x7e204801: hhctrl + 0x24801 (Ordinal10 + 0x24801)
+	0x7e20bcae: hhctrl + 0x2bcae (HhWindowThread + 0x10d)
+	0x7c80b682: kernel32 + 0xb682 (GetModuleFileNameA + 0x1b3)
+	0xffffffffffffffff: ccl_thr + 0xffffffffffccffff (?tst_flush_rout@@YAXXZ + 0xffffffffffcdc4cf)
+	</callstack>
+	<error>*** Fatal Error: Access Violation at 0X65E591AE
+Current editor: STED, RPW, PGMW
+Module: quartus.exe</error>
+	<date>Sat Oct 06 15:17:48 2007</date>
+	<version>Quartus II Version 7.2 Build 151 09/26/2007 SJ Web Edition</version>
+	<full_error>
+*** Fatal Error: Access Violation at 0X65E591AE
+Current editor: STED, RPW, PGMW
+Module: quartus.exe
+Quartus II Version 7.2 Build 151 09/26/2007 SJ Web Edition </full_error>
+</internal_error>
+
+<internal_error>
+	<executable>quartus.exe</executable>
+	<sub_system>ERR</sub_system>
+	<file>q:\quartus\ccl\msg\msg_internal_error.cpp</file>
+	<line>732</line>
+	<callstack>
+	0x015b0011: db_cut + 0x210011 (??4CUT_LCELL_UTIL@@QAEAAV0@ABV0@@Z + 0x5d4c1)
+	0x77d48815: USER32 + 0x8815 (GetDC + 0x14e)
+	0x77d4b4bf: USER32 + 0xb4bf (DefWindowProcW + 0x183)
+	</callstack>
+	<error>*** Fatal Error: Access Violation at 0X015B0011
+Current editor: STED, RPW, PGMW
+Module: quartus.exe</error>
+	<date>Sat Oct 06 19:14:01 2007</date>
+	<version>Quartus II Version 7.2 Build 151 09/26/2007 SJ Web Edition</version>
+	<full_error>
+*** Fatal Error: Access Violation at 0X015B0011
+Current editor: STED, RPW, PGMW
+Module: quartus.exe
+Quartus II Version 7.2 Build 151 09/26/2007 SJ Web Edition </full_error>
+</internal_error>
+

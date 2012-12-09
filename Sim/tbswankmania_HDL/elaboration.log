@@ -1,0 +1,45 @@
+elbread.dll ver. 1.0.5.375 Wed Nov 21 16:26:56 2007
+
+
+---------------------------------------------------
+Module                           | Library       
+---------------------------------------------------
+tbswankmania_HDL                 | tbswankmania_hdl
+tbClk                            | tbswankmania_hdl
+swankmania_HDL                   | tbswankmania_hdl
+PLL_Sys                          | tbswankmania_hdl
+ComCtrl                          | tbswankmania_hdl
+ACX705AKM_Ctrl                   | tbswankmania_hdl
+FrameCtrl                        | tbswankmania_hdl
+Line                             | tbswankmania_hdl
+Flip                             | tbswankmania_hdl
+SSHLEDMDCtrl                     | tbswankmania_hdl
+altpll                           | ovi_lpm
+ALTERA_DEVICE_FAMILIES           | ovi_lpm
+MF_stratix_pll                   | ovi_lpm
+MF_stratixii_pll                 | ovi_lpm
+MF_stratixiii_pll                | ovi_lpm
+MF_cycloneiii_pll                | ovi_lpm
+stx_m_cntr                       | ovi_lpm
+stx_n_cntr                       | ovi_lpm
+stx_scale_cntr                   | ovi_lpm
+MF_pll_reg                       | ovi_lpm
+dffp                             | ovi_lpm
+arm_m_cntr                       | ovi_lpm
+arm_n_cntr                       | ovi_lpm
+arm_scale_cntr                   | ovi_lpm
+ttn_m_cntr                       | ovi_lpm
+ttn_n_cntr                       | ovi_lpm
+ttn_scale_cntr                   | ovi_lpm
+cda_m_cntr                       | ovi_lpm
+cda_n_cntr                       | ovi_lpm
+cda_scale_cntr                   | ovi_lpm
+Debounce                         | tbswankmania_hdl
+ComFIFO                          | tbswankmania_hdl
+CmdDecoder                       | tbswankmania_hdl
+scfifo                           | ovi_lpm
+lpm_decode                       | ovi_lpm
+FrameA                           | tbswankmania_hdl
+altsyncram                       | ovi_lpm
+ALTERA_MF_MEMORY_INITIALIZATION  | ovi_lpm
+---------------------------------------------------

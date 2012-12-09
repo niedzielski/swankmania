@@ -1,0 +1,86 @@
+
+
+#>00000400          ___heap_size (linker command file)
+#>00000800          ___stack_size (linker command file)
+#>40000000          ___IPSBAR (linker command file)
+#>20000000          ___RAMBAR (linker command file)
+#>00008000          ___RAMBAR_SIZE (linker command file)
+#>00000000          ___FLASHBAR (linker command file)
+#>00040000          ___FLASHBAR_SIZE (linker command file)
+
+# .userram
+
+# .code
+
+# .vectorram
+
+# .text
+  20000500 000000BC .text   main	(main.c)
+  200005BC 0000008C .text   smInit	(Graphics.c)
+  20000648 0000002C .text   __destroy_global_chain	(C_4i_CF_Runtime.a e68k_staticinit)
+  20000674 00000004 .text   _ExitProcess	(C_4i_CF_Runtime.a e68k_startup.o )
+  20000678 000000A8 .text   clear_mem	(C_4i_CF_Runtime.a e68k_startup.o )
+  20000720 00000094 .text   _start	(C_4i_CF_Runtime.a e68k_startup.o )
+  200007B4 00000030 .text   __initialize_hardware	(C_4i_CF_Runtime.a e68k_startup.o )
+  200007E4 00000004 .text   __initialize_OS	(C_4i_CF_Runtime.a e68k_startup.o )
+  200007E8 00000008 .text   simple_block_copy	(C_4i_CF_Runtime.a romcopy.o      )
+  200007F0 0000001C .text   __copy_rom_section	(C_4i_CF_Runtime.a romcopy.o      )
+  2000080C 00000054 .text   __copy_rom_sections_to_ram	(C_4i_CF_Runtime.a romcopy.o      )
+  20000860 0000003C .text   exit	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+  2000089C 00000044 .text   __exit	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+
+# .data
+#>20006000          ___DATA_ROM (linker command file)
+#>20006000          ___DATA_RAM (linker command file)
+#>20006000          __exception_table_start__ (linker command file)
+# Exception index
+  20006000 00000000         Exception Table Index	()
+#>20006000          __exception_table_end__ (linker command file)
+#>20006000          ___sinit__ (linker command file)
+# Linker generated symbols
+  20006000 00000004         static initializer	(linker generated)
+#>20006004          __START_DATA (linker command file)
+#>20006004          __END_DATA (linker command file)
+#>20006004          __START_SDATA (linker command file)
+#>20006004          __END_SDATA (linker command file)
+#>20006004          ___DATA_END (linker command file)
+#>20006004          __SDA_BASE (linker command file)
+
+# .bss
+#>20006004          ___BSS_START (linker command file)
+#>20006004          __START_SBSS (linker command file)
+#>20006004          __END_SBSS (linker command file)
+#>20006004          __START_BSS (linker command file)
+  20006004 00000001 .bss    Frame	(Graphics.c)
+  20006006 00000004 .bss    __global_destructor_chain	(C_4i_CF_Runtime.a e68k_staticinit)
+  2000600A 00000004 .bss    __aborting	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+  2000600E 00000004 .bss    __atexit_curr_func	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+  20006012 00000004 .bss    __stdio_exit	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+  20006016 00000004 .bss    __console_exit	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+  2000601A 00000100 .bss    __atexit_funcs	(C_TRK_4i_CF_SZ_MSL.a abort_exit_e68k)
+#>2000611C          __END_BSS (linker command file)
+#>2000611C          ___BSS_END (linker command file)
+
+# .custom
+#>2000611C          ___HEAP_START (linker command file)
+#>2000611C          ___heap_addr (linker command file)
+#>2000651C          ___HEAP_END (linker command file)
+#>2000651C          ___SP_END (linker command file)
+#>20006D1C          ___SP_INIT (linker command file)
+#>20000000          ___VECTOR_RAM (linker command file)
+#>20006D1C          __SP_INIT (linker command file)
+#>00000000          __S_romp (linker command file)
+
+
+# Memory map:
+  v_addr   p_addr   size     name
+  20000000 20000000 00000000 .vectorram vectorram
+  20000500 20000500 00000000 .code      code
+  20000500 20000500 000003E0 .text      code
+  20006000 20006000 00000000 .userram   userram
+  20006000 20006000 00000004 .data      userram
+  20006004 20006004 00000118 .bss       userram
+  2000611C 2000611C 00000000 .custom    userram
+
+# Link start time: Tue Nov 13 22:39:12 2007
+# Link end time: Tue Nov 13 22:39:12 2007

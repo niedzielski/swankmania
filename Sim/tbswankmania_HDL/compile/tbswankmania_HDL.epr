@@ -1,0 +1,16 @@
+"../../source/comctrl.v"	1
+"../../source/debounce.v"	1
+"../../source/swankmania_hdl.v"	1
+"../../source/tbclk.v"	1
+"../../lib/pll_sys.v"	1
+"../../lib/cmddecoder.v"	1
+"../../source/sshledmdctrl.v"	1
+"../../source/tbswankmania_hdl.v"	1
+"../../source/acx705akm_ctrl.v"	1
+"../../source/framectrl.v"	1
+"../../source/line.v"	1
+"../../source/global.h"	1
+"../../source/triangle.v"	1
+"../../lib/comfifo.v"	1
+"../../source/flip.v"	1
+"../../lib/framea.v"	1

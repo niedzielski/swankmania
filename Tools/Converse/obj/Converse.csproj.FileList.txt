@@ -1,0 +1,8 @@
+bin\Debug\Converse.exe
+bin\Debug\Converse.pdb
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Converse.Form1.resources
+obj\Debug\Converse.Properties.Resources.resources
+obj\Debug\Converse.csproj.GenerateResource.Cache
+obj\Debug\Converse.exe
+obj\Debug\Converse.pdb

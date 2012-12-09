@@ -1,0 +1,318 @@
+/*******************************************************************************
+DreamTangle_HDL
+Stephen Niedzielski - sniedzie@digipen.edu
+*******************************************************************************/
+
+
+// Created:   Thursday, September 27, 2007   [Stephen Niedzielski]
+// Modified:  Thursday, September 27, 2007 [Stephen Niedzielski]
+module swankmania_HDL
+(
+  input CLOCK_27,
+  input CLOCK_50,
+
+  input [17:00] SW,
+
+  // Sony ACX705AKM.
+  input [01] GPIO_1,  // R2
+  input [03] GPIO_1,  // R1
+  input [05] GPIO_1,  // R0
+  input [07] GPIO_1,  // G2
+  input [09] GPIO_1,  // G1
+  input [11] GPIO_1,  // G0
+  input [13] GPIO_1,  // B2
+  input [15] GPIO_1,  // B1
+  input [17] GPIO_1,  // B0
+  input [19] GPIO_1,  // VSYNC
+  input [21] GPIO_1,  // HSYNC
+  input [23] GPIO_1,  // SD
+  input [25] GPIO_1   // MCK
+
+
+);
+
+  // Sony ACX705AKM.
+  wire [8:0] RGB;
+  wire
+  VSYNC,
+  HSYNC,
+  SD,
+  MCK;
+
+  assign
+  GPIO_1[01] = RGB[8],  // R2
+  GPIO_1[03] = RGB[7],  // R1
+  GPIO_1[05] = RGB[6],  // R0
+  GPIO_1[07] = RGB[5],  // G2
+  GPIO_1[09] = RGB[4],  // G1
+  GPIO_1[11] = RGB[3],  // G0
+  GPIO_1[13] = RGB[2],  // B2
+  GPIO_1[15] = RGB[1],  // B1
+  GPIO_1[17] = RGB[0],  // B0
+  GPIO_1[19] = VSYNC,   // VSYNC
+  GPIO_1[21] = HSYNC,   // HSYNC
+  GPIO_1[23] = SD,      // SD
+  GPIO_1[35] = MCK;     // MCK
+
+  // Never shut down.
+  assign SD = 1'b1;
+
+  localparam
+  MCK_Hz        = 4_000_000,
+  HSYNC_Frame   = 199,
+  VSYNC_Hz      = 74.171,
+  Dots_Frame    = 271,
+  Pixels_Line   = 240,
+  Line_Frame    = 160,
+  Pixels_Frame  = Pixels_Line * Line_Frame;
+
+  // Generate the 4 MHz MCK clock signal from a 16 MHz PLL and two flip flops.
+  wire Clk16;
+
+  PLL_16
+  PLL_16_0
+  (
+    .inclk0( CLOCK_50 ),
+    .c0( Clk16 )
+  );
+
+  assign MCK = _MCK;
+  reg,
+  _MCK8,
+  _MCK;
+  initial
+  begin
+    _MCK8 = 0;
+    _MCK = 0;
+  end
+
+  // 8 MHz.
+  always @( posedge Clk16 )
+  begin
+    _MCK8 <= ~_MCK8;
+  end
+
+  // 4 MHz.
+  always @( posedge _MCK8 )
+  begin
+    _MCK <= ~_MCK;
+  end
+
+  // HSYNC, VSYNC, and pixel management.
+  assign
+  FrameBuffer_Adr = _FrameBuffer_Adr,
+  HSYNC = _HSYNC,
+  VSYNC = _VSYNC;
+  reg [15:0] _FrameBuffer_Adr;
+  reg [8:0] _DotCount;
+  reg [6:0] _LineCount;
+  reg
+  _HSYNC,
+  _VSYNC;
+  initial
+  begin
+    _Address = 0;
+    _DotCount = 0;
+    _LineCount = 0;
+    _HSYNC = 0;
+    _VSYNC = 0;
+  end
+
+// TODO: Re-examine this means.  Must be a much better way.  Perhaps combinational.
+  always @( posedge MCK )
+  begin
+    if( _Address < (Pixels_Frame - 1'd1) )
+    begin
+      if( _DotCount < Pixels_Line )
+      begin
+        _FrameBuffer_Adr <= _FrameBuffer_Adr + 1'd1;
+      end
+    end
+    else
+    begin
+      _Address <= 16'd0;
+    end
+  end
+
+  // Derive HSYNC from MCK.
+  always @( posedge MCK )
+  begin
+    // TODO: Reset / sync.
+    if( _DotCount == (Dots_Frame - 1'd1) )
+    begin
+      _HSYNC <= 1'b1;
+      _DotCount <= 9'd0;
+    end
+    else
+    begin
+      _HSYNC <= 1'b0;
+      _DotCount <= _DotCount + 1'd1;
+    end
+  end
+
+  // Derive VSYNC from HSYNC.
+  always @( posedge HSYNC )
+  begin
+    if( _LineCount == ($unsigned(VSYNC_Hz) - 1'd1) )
+    begin
+      _VSYNC <= 1'b1;
+      _LineCount <= 7'd0;
+    end
+    else
+    begin
+      _VSYNC <= 1'b0;
+      _LineCount <= _LineCount + 1'd1;
+    end
+  end
+
+
+  wire [15:0] FrameBuffer_Adr;
+  M4K_43_200
+  M4K_43_200_0
+  (
+    .address( FrameBuffer_Adr ),
+    .clock( MCK ),
+    .data(  ),
+    .wren( 1'b0 ),
+    .q( RGB )
+  );
+
+
+  // Change these to PLL's, expsecially the MCK.
+  FrequencyDivider50
+  #(
+    .iClk_Hz( 50_000_000 ),
+    .oClk_Hz( 12_000 * 2 )
+  )
+  HSYNC_Gen
+  (
+    .iClk( CLOCK_50 ),
+    .iEn( 1'b1 ),
+    .iRst( 1'b0 ),
+    ._oClk( HSYNC )
+  );
+  wire HSYNC;
+
+  FrequencyDivider50
+  #(
+    .iClk_Hz( 50_000_000 ),
+    .oClk_Hz( 60 * 2 )
+  )
+  VSYNC_Gen
+  (
+    .iClk( CLOCK_50 ),
+    .iEn( 1'b1 ),
+    .iRst( 1'b0 ),
+    ._oClk( VSYNC )
+  );
+  wire VSYNC;
+
+
+  reg [15:0] _Address;
+  initial
+  begin
+    _Address = 0;
+  end
+
+  always @( posedge MCK )
+  begin
+    if( _Address < 38_400 )
+    begin
+      _Address <= _Address + 1;
+    end
+    else
+    begin
+      _Address <= 0;
+    end
+  end
+
+  always @( posedge CLOCK_27 )
+  begin
+    //RGB <= SW[8:0];
+    _SD <= SW[9];
+  end
+
+endmodule
+
+
+module ACX705AKM_Ctrl
+(
+);
+
+endmodule
+
+
+//******************************************************************************
+// Priority encoder.
+// Verilog 2001 prohibits functions of global scope.  This macro provides an
+// easy and safe copy and paste method to mimic global scope.
+  function [31:0] pri_enc
+  (
+    input [127:0] N
+  );
+    for(pri_enc = 0; N > 0; N = N >> 1)
+    begin
+      pri_enc = pri_enc + 1;
+    end
+  
+  endfunction
+//******************************************************************************
+
+// TODO: Mod original freq divider to give 50% DC option.
+module FrequencyDivider50
+#(
+  parameter iClk_Hz = 0,  // Frequency of the input clock.
+  parameter oClk_Hz = 0   // Desired output frequency.
+)
+(
+  input       iClk,
+  input       iEn,
+  input       iRst,
+  output reg  _oClk
+);
+
+  `ifdef ALDEC
+    // TODO: Error if either iClk_Hz or oClk_Hz is zero.
+  `endif
+
+  initial
+  begin
+    _oClk = 0;
+  end
+
+  // Calculate the number of ticks needed on Clock to produce the frequency
+  // specified by Output_Hz.
+  localparam Ticks =  $unsigned( iClk_Hz / oClk_Hz );
+
+  // Get a counter of minimum width.
+  reg [pri_enc( Ticks ) - 1 : 0] _Count;
+
+  initial
+  begin
+    _Count = Ticks;
+  end
+
+  // TODO: Verifying is synthesizing properly and pop wire width warning.
+
+  always_ff @( posedge iClk )
+  begin
+    if( iRst )
+    begin
+      _Count <= Ticks;
+      _oClk <= 0;
+    end
+    else if( iEn )
+    begin
+      // Decrement the counter.
+      // TODO: Change to parameterizable LPM_ADD_SUB.
+      _Count <= _Count - 1;
+
+      if ( _Count == 0 )
+      begin
+        // If the counter is zero, toggle the output line and reset the counter.
+        _oClk <= ~_oClk;
+        _Count <= Ticks;
+      end
+    end
+  end
+endmodule

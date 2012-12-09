@@ -1,0 +1,308 @@
+/*******************************************************************************
+swankmania_HDL
+Stephen Niedzielski - sniedzie@digipen.edu
+*******************************************************************************/
+
+`include "Global.h"
+
+
+// Created:   Thursday, September 27, 2007 [Stephen Niedzielski]
+// Modified:  Thursday, September 27, 2007 [Stephen Niedzielski]
+module MemAndComTest
+(
+  // Clocks.
+  input iClk27,
+  input iClk50,
+
+  // Switches and buttons.
+  input [17:00] iSwitch,
+  input [03:00] iButton_,
+
+  // LEDs.
+  output [17:0] oLEDR,
+  output [08:0] oLEDG,
+
+  // Seven segment LED matrix display (hexadecimal).
+  output [06:0] oHex7,
+  output [06:0] oHex6,
+  output [06:0] oHex5,
+  output [06:0] oHex4,
+  output [06:0] oHex3,
+  output [06:0] oHex2,
+  output [06:0] oHex1,
+  output [06:0] oHex0,
+
+  // Communication.
+  inout [23:0] ioGPIO0,
+
+  // Sony ACX705AKM.
+  inout [25:0] ioGPIO1,
+
+  // SRAM.
+  output [17:00]  oSRAM_A,
+  inout  [15:00]  ioSRAM_IO,
+  output          oSRAM_CE_,
+  output          oSRAM_WE_,
+  output          oSRAM_LB_,
+  output          oSRAM_UB_,
+  output          oSRAM_OE_
+);
+  wire
+  Clk16,
+  Clk100;
+
+  wire LineWrEn;
+  wire LineDone;
+  wire [15:0] LineAdr;
+
+  wire FlipWrEn;
+  wire FlipDone;
+  wire [15:0] FlipAdr;
+  
+  wire [8:0] ACX_RGB;
+  wire
+  ACX_Vsync,
+  ACX_Hsync,
+  ACX_SD,
+  ACX_MCK;
+  wire [15:0] ACX_Adr;
+
+  wire [8:0] ComD;
+  wire [8:0] ComColor;
+  wire
+  ComGo,
+  ComCmd,
+  ComFrame,
+  ComFlip,
+  ComDrawGo,
+  ComPolyline,
+  ComTriangle;
+  wire [7:0]
+  ComX0,
+  ComY0,
+  ComX1,
+  ComY1,
+  ComX2,
+  ComY2;
+
+  wire [8 * 4 - 1: 0] SSHLEDMDCtrlD;
+  wire [8 * 7 - 1: 0] SSHLEDMDCtrlQ;
+ 
+  
+  // Phase locked loop.
+  PLL_Sys
+  PLL_Sys0
+  (
+    .inclk0( iClk50 ),
+    .c0( Clk16 ),
+    .c1( Clk100 )
+  );
+
+  // Communication.
+  assign ComFrame = ~ACX_Vsync;
+  assign
+  ioGPIO0[00] = 1'b0,
+  ComD[0] = ioGPIO0[01],  // AN0
+  ioGPIO0[02] = 1'b0,
+  ComD[1] = ioGPIO0[03],  // AN1
+  ioGPIO0[04] = 1'b0,
+  ComD[2] = ioGPIO0[05],  // AN2
+  ioGPIO0[06] = 1'b0,
+  ComD[3] = ioGPIO0[07],  // AN3
+  ioGPIO0[08] = 1'b0,
+  ComD[4] = ioGPIO0[09],  // AN4
+  ioGPIO0[10] = 1'b0,
+  ComD[5] = ioGPIO0[11],  // AN5
+  ioGPIO0[12] = 1'b0,
+  ComD[6] = ioGPIO0[13],  // QS0
+  ioGPIO0[14] = 1'b0,
+  ComD[7] = ioGPIO0[15],  // QS1
+  ioGPIO0[16] = 1'b0,
+  ComD[8] = ioGPIO0[17],  // QS2
+  ioGPIO0[18] = 1'b0,
+  ComGo = ioGPIO0[19],    // QS3
+  ioGPIO0[20] = 1'b0,
+  ComCmd = ioGPIO0[21],   // TC0
+  ioGPIO0[22] = 1'b0,
+  ioGPIO0[23] = ComFrame; // TC1
+
+  ComCtrl
+  ComCtrl0
+  (
+    .iClk( Clk100 ),
+  
+    // MCU.
+    .iD( ComD ),
+    .iGo( ComGo ),
+    .iCmd( ComCmd ),
+
+    // Draw.
+    .oGo( ComDrawGo ),
+    .iDone( ComPolyline & LineDone | ComFlip & FlipDone | (!ComPolyline & !ComFlip) ),
+    .oColor( ComColor ),
+    .oX0( ComX0 ),
+    .oY0( ComY0 ),
+    .oX1( ComX1 ),
+    .oY1( ComY1 ),
+    .oX2( ComX2 ),
+    .oY2( ComY2 ),
+    .oFlip( ComFlip ),
+    .oPolyline( ComPolyline ),
+    .oTriangle( ComTriangle ),
+
+    // Debug.
+    .oDbgFull( oLEDR[0] ),
+    .oDbgFullPersistent( oLEDR[1] ),
+    .oDbgUsed( )
+  );
+
+  assign SSHLEDMDCtrlD = { ComX0, ComY0 };
+
+  // Sony ACX705AKM.
+  assign
+  ioGPIO1[00] = 1'b0,
+  ioGPIO1[01] = ACX_RGB[8],  // R2
+  ioGPIO1[02] = 1'b0,
+  ioGPIO1[03] = ACX_RGB[7],  // R1
+  ioGPIO1[04] = 1'b0,
+  ioGPIO1[05] = ACX_RGB[6],  // R0
+  ioGPIO1[06] = 1'b0,
+  ioGPIO1[07] = ACX_RGB[5],  // G2
+  ioGPIO1[08] = 1'b0,
+  ioGPIO1[09] = ACX_RGB[4],  // G1
+  ioGPIO1[10] = 1'b0,
+  ioGPIO1[11] = ACX_RGB[3],  // G0
+  ioGPIO1[12] = 1'b0,
+  ioGPIO1[13] = ACX_RGB[2],  // B2
+  ioGPIO1[14] = 1'b0,
+  ioGPIO1[15] = ACX_RGB[1],  // B1
+  ioGPIO1[16] = 1'b0,
+  ioGPIO1[17] = ACX_RGB[0],  // B0
+  ioGPIO1[18] = 1'b0,
+  ioGPIO1[19] = ACX_Hsync,   // Hsync
+  ioGPIO1[20] = 1'b0,
+  ioGPIO1[21] = ACX_Vsync,   // Vsync
+  ioGPIO1[22] = 1'b0,
+  ioGPIO1[23] = ACX_SD,      // SD
+  ioGPIO1[24] = 1'b0,
+  ioGPIO1[25] = ACX_MCK;     // MCK
+
+  ACX705AKM_Ctrl
+  ACX705AKM_Ctrl0
+  (
+    .iClk100( Clk100 ),
+    .iClk16( Clk16 ),
+    .oVsync( ACX_Vsync ),
+    .oHsync( ACX_Hsync ),
+    .oSD( ACX_SD ),
+    .oMCK( ACX_MCK ),
+    .oAdr( ACX_Adr )
+  );
+
+  // Frame control.
+  FrameCtrl
+  FrameCtrl0
+  (
+    .iClk( Clk100 ),
+    .iFlipGo( ComDrawGo & ComFlip ),
+    .iFlip( ComFlip ),
+  
+    // ACX interface.
+    .iClk0( ACX_MCK ),
+    .iAdr0( ACX_Adr ),
+    .iD0( 9'h0 ),
+    .oQ0( ACX_RGB ),
+    .iWrEn0( 1'b0 ),
+
+    // Write interface.
+    .iClk1( Clk100 ),
+    .iAdr1( ComPolyline ? LineAdr : FlipAdr ),
+    .iD1( ComColor ),
+    .oQ1(  ),
+    .iWrEn1( ComPolyline & LineWrEn | ComFlip & FlipWrEn ),
+
+    // SRAM (frame B).
+    .oSRAM_A( oSRAM_A ),
+    .ioSRAM_IO( ioSRAM_IO ),
+    .oSRAM_CE_( oSRAM_CE_ ),
+    .oSRAM_WE_( oSRAM_WE_ ),
+    .oSRAM_LB_( oSRAM_LB_ ),
+    .oSRAM_UB_( oSRAM_UB_ ),
+    .oSRAM_OE_( oSRAM_OE_ ),
+
+    .oDbg( oLEDR[2] )
+  );
+//
+//reg [15:0] LineAdr;
+//reg LineWrEn;
+//initial LineWrEn = 0;
+//reg LineDone;
+//initial LineDone = 0;
+  
+  // Line
+  Line
+  Line0
+  (
+    .iClk( Clk100 ),
+    .iGo( ComDrawGo & ComPolyline ),
+    .oDone( LineDone ),
+
+    // Points.
+    .iX0( ComX0 ),
+    .iY0( ComY0 ),
+    .iX1( ComX1 ),
+    .iY1( ComY1 ),
+
+    // Frame.
+    .oAdr( LineAdr ),
+    .oWrEn( LineWrEn )
+  );
+
+//  always_ff @( posedge Clk100 )
+//  begin
+//    LineWrEn <= 1'b0;
+//    LineDone <= 1'b1;
+//    if( ComDrawGo & ComPolyline )
+//    begin
+//      LineAdr <= ComX0 + ComX0 * 240;
+//      LineWrEn <= 1'b1;
+//      LineDone <= 1'b0;
+//    end
+//  end
+
+  //assign FlipDone = 1'b1;
+  Flip
+  Flip0
+  (
+    .iClk( Clk100 ),
+    .iGo( ComDrawGo & ComFlip ),
+    .oDone( FlipDone ),
+
+    // Frame.
+    .oAdr( FlipAdr ),
+    .oWrEn( FlipWrEn )
+  );
+
+  // Debug.
+  assign { oHex7,
+           oHex6,
+           oHex5,
+           oHex4,
+           oHex3,
+           oHex2,
+           oHex1,
+           oHex0 } = SSHLEDMDCtrlQ;
+  generate
+    genvar gCnt;
+    for( gCnt = 0; gCnt < 8; gCnt = gCnt + 1 )
+    begin: gSSHLEDMDCtrl
+      SSHLEDMDCtrl Digit
+      (
+        .iBCD( SSHLEDMDCtrlD[gCnt * 4 +: 4] ), // Get number to display in four bit
+                                                // widths (Start +: width).
+        .oMatrix( SSHLEDMDCtrlQ[gCnt * 7 +: 7] ) // Get matrix in seven bit widths.
+      );
+    end
+  endgenerate 
+  
+endmodule

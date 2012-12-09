@@ -1,0 +1,177 @@
+/*******************************************************************************
+swankmania_HDL
+Stephen Niedzielski - sniedzie@digipen.edu
+*******************************************************************************/
+
+`include "Global.h"
+
+
+// Bresenham line drawing algorithm.
+// Note: Limited to 8 bit.
+// Created:   Sunday, October 21, 2007 [Stephen Niedzielski]
+// Modified:  Sunday, October 21, 2007 [Stephen Niedzielski]
+module Line
+#(
+  parameter Pixels_Line = 240
+)
+(
+  input         iClk,
+  input         iGo,
+  output        oDone,
+
+  // Points.
+  input [7:0]   iX0,
+  input [7:0]   iY0,
+  input [7:0]   iX1,
+  input [7:0]   iY1,
+
+  // Frame.
+  output [15:0] oAdr,
+  output        oWrEn
+);
+// TODO: Change var names.
+// TODO: Redo.
+  reg _Done;
+  initial
+    _Done = 1'b1;
+  assign oDone = _Done;
+ 
+  wire signed [8:0]
+  X0 = iX0,
+  Y0 = iY0,
+  `ifdef ALDEC
+    X1 = 9'd0,
+    Y1 = 9'd0;
+  `endif
+  `ifndef ALDEC
+    X1 = iX1,
+    Y1 = iY1;
+  `endif
+  
+  reg _WrEn;
+  initial
+    _WrEn = 1'b0;
+  assign oWrEn = _WrEn;
+
+  wire signed [8:0]
+  dxAbs = X1 > X0 ? X1 - X0 : X0 - X1,
+  dyAbs = Y1 > Y0 ? Y1 - Y0 : Y0 - Y1;
+
+  wire Steep = dyAbs > dxAbs;
+
+  reg [7:0]
+  _AddrX,
+  _AddrY;
+  initial
+  begin
+    _AddrX = 8'hxx;
+    _AddrY = 8'hxx;
+  end
+  assign oAdr = _AddrX + _AddrY * Pixels_Line;
+
+  reg signed [8:0]
+  _X,
+  _Y,
+  _dx,
+  _dy,
+  _Err,
+  _LastStep;
+  reg _NegativeYStep;
+  initial
+  begin
+    _X = 8'hxx;
+    _Y = 8'hxx;
+    _dx = 8'hxx;
+    _dy = 8'hxx;
+    _LastStep = 8'hxx;
+    _NegativeYStep = 1'bx;
+  end
+
+  always_ff @( posedge iClk )
+  begin
+    // Default.
+    _WrEn <= 1'b0;
+
+    if( iGo ) // Initialization.
+    begin
+      _Done <= 1'b0;
+      
+      _dx             <= X1 - X0;
+      _dy             <= dyAbs;
+      _Err            <= (-(X1 - X0)) / 2;
+      _Y              <= Y0;
+      _X              <= X0;
+      _LastStep       <= X1;
+      _AddrX          <= X0;
+      _AddrY          <= Y0;
+      _NegativeYStep  <= Y0 >= Y1;
+
+      if( Steep && (Y0 > Y1) ) // Swap X with Y and points: (Y1,X1), (Y0,X0).
+      begin
+        _dx             <= Y0 - Y1;
+        _dy             <= dxAbs;
+        _Err            <= (-(Y0 - Y1)) / 2;
+        _Y              <= X1;
+        _X              <= Y1;
+        _LastStep       <= Y0;
+        _AddrX          <= Y1;
+        _AddrY          <= X1;
+        _NegativeYStep  <= X1 >= X0;
+      end
+      else if( Steep ) // Swap X with Y: (Y0,X0), (Y1,X1).
+      begin
+        _dx             <= Y1 - Y0;
+        _dy             <= dxAbs;
+        _Err            <= (-(Y1 - Y0)) / 2;
+        _Y              <= X0;
+        _X              <= Y0;
+        _LastStep       <= Y1;
+        _AddrX          <= Y0;
+        _AddrY          <= X0;
+        _NegativeYStep  <= X0 >= X1;
+      end
+      else if( X0 > X1 ) // Swap points: (X1,Y1), (X0,Y0).
+      begin
+        _dx             <= X0 - X1;
+        _dy             <= dyAbs;
+        _Err            <= (-(X0 - X1)) / 2;
+        _Y              <= Y1;
+        _X              <= X1;
+        _LastStep       <= X0;
+        _AddrX          <= X1;
+        _AddrY          <= Y1;
+        _NegativeYStep  <= Y1 >= Y0;
+      end
+
+    end
+    else if( !oDone ) // Draw.
+    begin
+      if( _X == _LastStep )
+        _Done <= 1'b1; // Break.
+
+      _WrEn   <= 1'b1;
+      _AddrX  <= Steep ? _Y : _X;
+      _AddrY  <= Steep ? _X : _Y;
+      _X      <= _X + 1'd1;
+/* BAD?
+      if( (_Err + ((dx * 2) - dy)) > 0 )
+      begin
+        _Err  <= (_Err + ((dx * 2) - dy)) - _dx;
+        _Y    <= _NegativeYStep ? _Y - 1'd1 : _Y + 1'd1;
+      end
+      else
+        _Err  <= _Err + ((dx * 2) - dy);
+*/
+      if( (_Err + _dy) > 0 )
+      begin
+        _Err  <= (_Err + _dy) - _dx;
+        _Y    <= _NegativeYStep ? _Y - 1'd1 : _Y + 1'd1;
+      end
+      else
+        _Err  <= _Err + _dy;
+
+    end
+
+  end
+
+endmodule

@@ -1,0 +1,15 @@
+[OPENDOC|Aldec.WaveForm.7|.\tbswankmania_HDL\src\wfswankmania.awf|]
+TemplateId=0
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\source\comctrl.v|]
+TemplateId=2
+ActiveDocument=1
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\Source\Global.h|]
+TemplateId=8
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\Source\FrameCtrl.v|]
+TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\Source\tbswankmania_HDL.v|]
+TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\source\swankmania_hdl.v|]
+TemplateId=2
+[OPENDOC|Aldec.Hde.HdePlugIn.7|.\..\Source\ACX705AKM_Ctrl.v|]
+TemplateId=2

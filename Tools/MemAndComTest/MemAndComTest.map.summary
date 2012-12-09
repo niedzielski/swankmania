@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Tue Nov 20 22:33:09 2007
+Quartus II Version : 7.2 Build 151 09/26/2007 SJ Web Edition
+Revision Name : MemAndComTest
+Top-level Entity Name : MemAndComTest
+Family : Cyclone II
+Total logic elements : 779
+    Total combinational functions : 779
+    Dedicated logic registers : 222
+Total registers : 222
+Total pins : 196
+Total virtual pins : 0
+Total memory bits : 355,840
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1

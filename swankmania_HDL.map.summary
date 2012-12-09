@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon Nov 26 17:49:10 2007
+Quartus II Version : 7.2 Build 151 09/26/2007 SJ Web Edition
+Revision Name : swankmania_HDL
+Top-level Entity Name : swankmania_HDL
+Family : Cyclone II
+Total logic elements : 982
+    Total combinational functions : 982
+    Dedicated logic registers : 288
+Total registers : 288
+Total pins : 196
+Total virtual pins : 0
+Total memory bits : 355,840
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 1

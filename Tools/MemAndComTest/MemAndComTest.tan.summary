@@ -1,0 +1,96 @@
+--------------------------------------------------------------------------------------
+Timing Analyzer Summary
+--------------------------------------------------------------------------------------
+
+Type           : Worst-case tsu
+Slack          : N/A
+Required Time  : None
+Actual Time    : 6.231 ns
+From           : ioGPIO0[19]
+To             : ComCtrl:ComCtrl0|Debounce:Debounce0|_Q
+From Clock     : --
+To Clock       : iClk50
+Failed Paths   : 0
+
+Type           : Worst-case tco
+Slack          : N/A
+Required Time  : None
+Actual Time    : 13.971 ns
+From           : Line:Line0|_AddrY[0]
+To             : oSRAM_A[12]
+From Clock     : iClk50
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case tpd
+Slack          : N/A
+Required Time  : None
+Actual Time    : 13.873 ns
+From           : ioSRAM_IO[8]
+To             : ioGPIO1[1]
+From Clock     : --
+To Clock       : --
+Failed Paths   : 0
+
+Type           : Worst-case th
+Slack          : N/A
+Required Time  : None
+Actual Time    : -5.523 ns
+From           : ioGPIO0[1]
+To             : ComCtrl:ComCtrl0|ComFIFO:ComFIFO0|scfifo:scfifo_component|scfifo_9h31:auto_generated|a_dpfifo_cn31:dpfifo|altsyncram_j2e1:FIFOram|altsyncram_ejj1:altsyncram1|ram_block2a0~portb_datain_reg0
+From Clock     : --
+To Clock       : iClk50
+Failed Paths   : 0
+
+Type           : Clock Setup: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1'
+Slack          : -0.352 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : 96.60 MHz ( period = 10.352 ns )
+From           : ACX705AKM_Ctrl:ACX705AKM_Ctrl0|_HsyncCnt100[0]
+To             : FrameCtrl:FrameCtrl0|FrameA:FrameA0|altsyncram:altsyncram_component|altsyncram_sqa1:auto_generated|ram_block1a11~porta_we_reg
+From Clock     : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1
+To Clock       : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1
+Failed Paths   : 1111
+
+Type           : Clock Setup: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0'
+Slack          : 59.665 ns
+Required Time  : 16.00 MHz ( period = 62.500 ns )
+Actual Time    : 352.73 MHz ( period = 2.835 ns )
+From           : ACX705AKM_Ctrl:ACX705AKM_Ctrl0|_DotCnt[2]
+To             : ACX705AKM_Ctrl:ACX705AKM_Ctrl0|_HsyncCnt[7]
+From Clock     : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0
+To Clock       : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0
+Failed Paths   : 0
+
+Type           : Clock Hold: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0'
+Slack          : 0.391 ns
+Required Time  : 16.00 MHz ( period = 62.500 ns )
+Actual Time    : N/A
+From           : ACX705AKM_Ctrl:ACX705AKM_Ctrl0|_HsyncCnt[6]
+To             : ACX705AKM_Ctrl:ACX705AKM_Ctrl0|_HsyncCnt[6]
+From Clock     : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0
+To Clock       : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0
+Failed Paths   : 0
+
+Type           : Clock Hold: 'PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1'
+Slack          : 0.391 ns
+Required Time  : 100.00 MHz ( period = 10.000 ns )
+Actual Time    : N/A
+From           : ComCtrl:ComCtrl0|_FullPersistent
+To             : ComCtrl:ComCtrl0|_FullPersistent
+From Clock     : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1
+To Clock       : PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk1
+Failed Paths   : 0
+
+Type           : Total number of failed paths
+Slack          : 
+Required Time  : 
+Actual Time    : 
+From           : 
+To             : 
+From Clock     : 
+To Clock       : 
+Failed Paths   : 1111
+
+--------------------------------------------------------------------------------------
+

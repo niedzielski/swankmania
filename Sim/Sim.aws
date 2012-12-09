@@ -1,0 +1,12 @@
+[Version]
+Version=7.2
+[Designs]
+tbswankmania_hdl=.\tbswankmania_HDL\tbswankmania_HDL.adf
+[Browser]
+sort=order
+mode=none
+[Order]
+order=1
+macro=
+[Expand]
+tbswankmania_hdl=1

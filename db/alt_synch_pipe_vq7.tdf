@@ -1,0 +1,40 @@
+--dffpipe DELAY=1 WIDTH=11 clock d ALTERA_INTERNAL_OPTIONS=X_ON_VIOLATION_OPTION=OFF
+--VERSION_BEGIN 7.2 cbx_a_gray2bin 2006:02:28:14:37:30:SJ cbx_a_graycounter 2007:02:22:13:58:22:SJ cbx_altdpram 2007:04:25:14:55:30:SJ cbx_altsyncram 2007:08:27:07:35:30:SJ cbx_cycloneii 2007:06:13:15:47:32:SJ cbx_dcfifo 2007:07:31:10:15:48:SJ cbx_fifo_common 2007:04:09:14:30:26:SJ cbx_flex10ke 2006:01:09:11:13:48:SJ cbx_lpm_add_sub 2007:08:06:16:01:34:SJ cbx_lpm_compare 2007:06:21:15:54:06:SJ cbx_lpm_counter 2007:08:07:01:40:08:SJ cbx_lpm_decode 2007:03:12:19:01:52:SJ cbx_lpm_mux 2007:05:11:14:07:38:SJ cbx_mgl 2007:08:03:15:48:12:SJ cbx_scfifo 2007:04:06:15:45:12:SJ cbx_stratix 2007:05:02:16:27:14:SJ cbx_stratixii 2007:06:28:17:26:26:SJ cbx_stratixiii 2007:06:28:17:15:56:SJ cbx_util_mgl 2007:06:01:06:37:30:SJ  VERSION_END
+
+
+-- Copyright (C) 1991-2007 Altera Corporation
+--  Your use of Altera Corporation's design tools, logic functions 
+--  and other software and tools, and its AMPP partner logic 
+--  functions, and any output files from any of the foregoing 
+--  (including device programming or simulation files), and any 
+--  associated documentation or information are expressly subject 
+--  to the terms and conditions of the Altera Program License 
+--  Subscription Agreement, Altera MegaCore Function License 
+--  Agreement, or other applicable license agreement, including, 
+--  without limitation, that your use is for the sole purpose of 
+--  programming logic devices manufactured by Altera and sold by 
+--  Altera or its authorized distributors.  Please refer to the 
+--  applicable agreement for further details.
+
+
+FUNCTION dffpipe_a09 (clock, d[10..0])
+RETURNS ( q[10..0]);
+
+--synthesis_resources = reg 11 
+OPTIONS ALTERA_INTERNAL_OPTION = "X_ON_VIOLATION_OPTION=OFF";
+
+SUBDESIGN alt_synch_pipe_vq7
+( 
+	clock	:	input;
+	d[10..0]	:	input;
+	q[10..0]	:	output;
+) 
+VARIABLE 
+	dffpipe6 : dffpipe_a09;
+
+BEGIN 
+	dffpipe6.clock = clock;
+	dffpipe6.d[] = d[];
+	q[] = dffpipe6.q[];
+END;
+--VALID FILE

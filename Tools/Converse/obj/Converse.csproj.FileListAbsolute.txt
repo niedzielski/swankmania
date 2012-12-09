@@ -1,0 +1,2 @@
+C:\s\vault\swankmania\Tools\Converse\obj\Debug\Converse.exe
+C:\s\vault\swankmania\Tools\Converse\obj\Debug\Converse.pdb

@@ -1,0 +1,208 @@
+Partition Merge report for swankmania_HDL
+Wed Nov 07 22:12:57 2007
+Quartus II Version 7.2 Build 151 09/26/2007 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Partition Merge Summary
+  3. Partition Merge Netlist Types Used
+  4. Partition Merge Partition Statistics
+  5. Partition Merge Resource Usage Summary
+  6. Partition Merge RAM Summary
+  7. Partition Merge Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2007 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++------------------------------------------------------------------------------+
+; Partition Merge Summary                                                      ;
++------------------------------------+-----------------------------------------+
+; Partition Merge Status             ; Successful - Wed Nov 07 22:12:57 2007   ;
+; Quartus II Version                 ; 7.2 Build 151 09/26/2007 SJ Web Edition ;
+; Revision Name                      ; swankmania_HDL                          ;
+; Top-level Entity Name              ; swankmania_HDL                          ;
+; Family                             ; Cyclone II                              ;
+; Total logic elements               ; 971                                     ;
+;     Total combinational functions  ; 971                                     ;
+;     Dedicated logic registers      ; 276                                     ;
+; Total registers                    ; 276                                     ;
+; Total pins                         ; 196 / 475 ( 41 % )                      ;
+; Total virtual pins                 ; 0                                       ;
+; Total memory bits                  ; 355,840 / 483,840 ( 74 % )              ;
+; Embedded Multiplier 9-bit elements ; 0 / 70 ( 0 % )                          ;
+; Total PLLs                         ; 1 / 4 ( 25 % )                          ;
++------------------------------------+-----------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Netlist Types Used                                                                                          ;
++-------------------------------------+------------------------+------------------------+-------------------------------------+
+; Partition Name                      ; Netlist Type Used      ; Netlist Type Requested ; Partition Contents                  ;
++-------------------------------------+------------------------+------------------------+-------------------------------------+
+; Top                                 ; Post-Synthesis Netlist ; Post-Synthesis Netlist ;                                     ;
+; PLL_Sys:PLL_Sys0                    ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; PLL_Sys:PLL_Sys0                    ;
+; ComCtrl:ComCtrl0                    ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; ComCtrl:ComCtrl0                    ;
+; ACX705AKM_Ctrl:ACX705AKM_Ctrl0      ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; ACX705AKM_Ctrl:ACX705AKM_Ctrl0      ;
+; FrameCtrl:FrameCtrl0                ; Post-Synthesis Netlist ; Post-Fitter Netlist    ; FrameCtrl:FrameCtrl0                ;
+; Line:Line0                          ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; Line:Line0                          ;
+; Flip:Flip0                          ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; Flip:Flip0                          ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_0__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[0].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_1__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[1].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_2__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[2].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_3__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[3].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_4__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[4].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_5__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[5].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_6__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[6].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_7__Digit ; Post-Fitter Netlist    ; Post-Fitter Netlist    ; SSHLEDMDCtrl:gSSHLEDMDCtrl[7].Digit ;
++-------------------------------------+------------------------+------------------------+-------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge Partition Statistics                                                                                                                                                                                                                                                                                                                  ;
++-------------------------------------+-------------------------------+-------------+-----------------+-----------------+-------------+--------------+------------------------+-------------------------+-------------------------+--------------------------+---------------------------+------------------------+-------------------------------------+
+; Partition Name                      ; Total combinational functions ; normal mode ; arithmetic mode ; Total registers ; Input Ports ; Output Ports ; Registered Input Ports ; Registered Output Ports ; Unconnected Input Ports ; Unconnected Output Ports ; Driven Ground Input Ports ; Driven VCC Input Ports ; Partition Contents                  ;
++-------------------------------------+-------------------------------+-------------+-----------------+-----------------+-------------+--------------+------------------------+-------------------------+-------------------------+--------------------------+---------------------------+------------------------+-------------------------------------+
+; Top                                 ; 22                            ; 22          ; 0               ; 0               ; 24          ; 172          ; 0                      ; 0                       ; N/A                     ; N/A                      ; N/A                       ; N/A                    ;                                     ;
+; PLL_Sys:PLL_Sys0                    ; 0                             ; 0           ; 0               ; 0               ; 1           ; 2            ; 0                      ; 0                       ; 0                       ; 0                        ; 0                         ; 0                      ; PLL_Sys:PLL_Sys0                    ;
+; ComCtrl:ComCtrl0                    ; 105                           ; 72          ; 33              ; 122             ; 13          ; 73           ; 10                     ; 70                      ; 0                       ; 17                       ; 0                         ; 0                      ; ComCtrl:ComCtrl0                    ;
+; ACX705AKM_Ctrl:ACX705AKM_Ctrl0      ; 65                            ; 23          ; 42              ; 32              ; 1           ; 20           ; 0                      ; 5                       ; 0                       ; 0                        ; 0                         ; 0                      ; ACX705AKM_Ctrl:ACX705AKM_Ctrl0      ;
+; FrameCtrl:FrameCtrl0                ; 152                           ; 152         ; 0               ; 11              ; 56          ; 57           ; 3                      ; 0                       ; 0                       ; 9                        ; 10                        ; 0                      ; FrameCtrl:FrameCtrl0                ;
+; Line:Line0                          ; 548                           ; 300         ; 248             ; 94              ; 34          ; 18           ; 0                      ; 5                       ; 0                       ; 0                        ; 0                         ; 0                      ; Line:Line0                          ;
+; Flip:Flip0                          ; 25                            ; 10          ; 15              ; 17              ; 2           ; 18           ; 0                      ; 17                      ; 0                       ; 0                        ; 0                         ; 0                      ; Flip:Flip0                          ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_0__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 0                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[0].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_1__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 0                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[1].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_2__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 2                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[2].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_3__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 4                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[3].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_4__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 4                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[4].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_5__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 4                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[5].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_6__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 4                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[6].Digit ;
+; SSHLEDMDCtrl:gSSHLEDMDCtrl_7__Digit ; 7                             ; 7           ; 0               ; 0               ; 4           ; 7            ; 0                      ; 0                       ; 0                       ; 0                        ; 4                         ; 0                      ; SSHLEDMDCtrl:gSSHLEDMDCtrl[7].Digit ;
++-------------------------------------+-------------------------------+-------------+-----------------+-----------------+-------------+--------------+------------------------+-------------------------+-------------------------+--------------------------+---------------------------+------------------------+-------------------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Partition Merge Resource Usage Summary                                                       ;
++---------------------------------------------+------------------------------------------------+
+; Resource                                    ; Usage                                          ;
++---------------------------------------------+------------------------------------------------+
+; Estimated Total logic elements              ; 971 / 33,216 ( 2 % )                           ;
+;                                             ;                                                ;
+; Total combinational functions               ; 971                                            ;
+; Logic element usage by number of LUT inputs ;                                                ;
+;     -- 4 input functions                    ; 260                                            ;
+;     -- 3 input functions                    ; 474                                            ;
+;     -- <=2 input functions                  ; 237                                            ;
+;                                             ;                                                ;
+; Logic elements by mode                      ;                                                ;
+;     -- normal mode                          ; 633                                            ;
+;     -- arithmetic mode                      ; 338                                            ;
+;                                             ;                                                ;
+; Total registers                             ; 276                                            ;
+;     -- Dedicated logic registers            ; 276                                            ;
+;     -- I/O registers                        ; 0                                              ;
+;                                             ;                                                ;
+; I/O pins                                    ; 196                                            ;
+; Total memory bits                           ; 355840                                         ;
+; Total PLLs                                  ; 1                                              ;
+; Maximum fan-out node                        ; PLL_Sys:PLL_Sys0|altpll:altpll_component|_clk0 ;
+; Maximum fan-out                             ; 334                                            ;
+; Total fan-out                               ; 5177                                           ;
+; Average fan-out                             ; 3.28                                           ;
++---------------------------------------------+------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Partition Merge RAM Summary                                                                                                                                                                                                                                                            ;
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------+
+; Name                                                                                                                                                                     ; Type ; Mode           ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF            ;
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------+
+; ComCtrl:ComCtrl0|ComFIFO:ComFIFO0|scfifo:scfifo_component|scfifo_0h31:auto_generated|a_dpfifo_3n31:dpfifo|altsyncram_a2e1:FIFOram|altsyncram_lpi1:altsyncram1|ALTSYNCRAM ; AUTO ; True Dual Port ; 1024         ; 10           ; 1024         ; 10           ; 10240  ; None           ;
+; FrameCtrl:FrameCtrl0|FrameA:FrameA0|altsyncram:altsyncram_component|altsyncram_00b1:auto_generated|ALTSYNCRAM                                                            ; AUTO ; Single Port    ; 38400        ; 9            ; --           ; --           ; 345600 ; ../startup.hex ;
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------+----------------+--------------+--------------+--------------+--------------+--------+----------------+
+
+
++--------------------------+
+; Partition Merge Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus II Partition Merge
+    Info: Version 7.2 Build 151 09/26/2007 SJ Web Edition
+    Info: Processing started: Wed Nov 07 22:12:55 2007
+Info: Command: quartus_cdb --read_settings_files=off --write_settings_files=off swankmania_HDL -c swankmania_HDL --merge=on
+Info: Using synthesis netlist for partition "Top"
+Info: Using previously generated Fitter netlist for partition "PLL_Sys:PLL_Sys0"
+Info: Using previously generated Fitter netlist for partition "ComCtrl:ComCtrl0"
+Info: Using previously generated Fitter netlist for partition "ACX705AKM_Ctrl:ACX705AKM_Ctrl0"
+Warning: Previously generated Fitter netlist for partition "FrameCtrl:FrameCtrl0" is older than current Synthesis netlist -- using the current Synthesis netlist to ensure that your latest source changes are included
+    Info: You can force the Quartus II software to use the previously generated Post-Fitter Netlist by setting the Netlist Type for this Design Partition to "Post-Fit (Strict)".
+Info: Using synthesis netlist for partition "FrameCtrl:FrameCtrl0"
+Info: Using previously generated Fitter netlist for partition "Line:Line0"
+Info: Using previously generated Fitter netlist for partition "Flip:Flip0"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_0__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_1__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_2__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_3__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_4__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_5__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_6__Digit"
+Info: Using previously generated Fitter netlist for partition "SSHLEDMDCtrl:gSSHLEDMDCtrl_7__Digit"
+Info: Netlist merging resolved 15 partition(s) out of the 15 partition(s) found
+Warning: PLL "PLL_Sys:PLL_Sys0|altpll:altpll_component|pll" is in normal or source synchronous mode with output clock "compensate_clock" set to clk[0] that is not fully compensated because it feeds an output pin -- only PLLs in zero delay buffer mode can fully compensate output pins
+Warning: Design contains 23 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "iClk27"
+    Warning (15610): No output dependent on input pin "iSwitch[0]"
+    Warning (15610): No output dependent on input pin "iSwitch[1]"
+    Warning (15610): No output dependent on input pin "iSwitch[2]"
+    Warning (15610): No output dependent on input pin "iSwitch[3]"
+    Warning (15610): No output dependent on input pin "iSwitch[4]"
+    Warning (15610): No output dependent on input pin "iSwitch[5]"
+    Warning (15610): No output dependent on input pin "iSwitch[6]"
+    Warning (15610): No output dependent on input pin "iSwitch[7]"
+    Warning (15610): No output dependent on input pin "iSwitch[8]"
+    Warning (15610): No output dependent on input pin "iSwitch[9]"
+    Warning (15610): No output dependent on input pin "iSwitch[10]"
+    Warning (15610): No output dependent on input pin "iSwitch[11]"
+    Warning (15610): No output dependent on input pin "iSwitch[12]"
+    Warning (15610): No output dependent on input pin "iSwitch[13]"
+    Warning (15610): No output dependent on input pin "iSwitch[14]"
+    Warning (15610): No output dependent on input pin "iSwitch[15]"
+    Warning (15610): No output dependent on input pin "iSwitch[16]"
+    Warning (15610): No output dependent on input pin "iSwitch[17]"
+    Warning (15610): No output dependent on input pin "iButton_[0]"
+    Warning (15610): No output dependent on input pin "iButton_[1]"
+    Warning (15610): No output dependent on input pin "iButton_[2]"
+    Warning (15610): No output dependent on input pin "iButton_[3]"
+Info: Implemented 1380 device resources after synthesis - the final resource count might be different
+    Info: Implemented 24 input pins
+    Info: Implemented 106 output pins
+    Info: Implemented 66 bidirectional pins
+    Info: Implemented 1089 logic cells
+    Info: Implemented 93 RAM segments
+    Info: Implemented 1 ClockLock PLLs
+Info: Quartus II Partition Merge was successful. 0 errors, 26 warnings
+    Info: Allocated 140 megabytes of memory during processing
+    Info: Processing ended: Wed Nov 07 22:12:58 2007
+    Info: Elapsed time: 00:00:03
+
+

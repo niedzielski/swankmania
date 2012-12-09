@@ -1,0 +1,1 @@
+-work tbswankmania_HDL -lc c:/user/swankmania/swankmania_HDL/Sim/library.cfg -fl c:/user/swankmania/swankmania_HDL/Sim/tbswankmania_HDL/projlib.cfg -o c:/user/swankmania/swankmania_HDL/Sim/tbswankmania_HDL/compile -l "tbswankmania_HDL" -v2k  +libext+.v+.h  -dbg
